@@ -6,7 +6,7 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface UserService {
-    @GET("user/login")
+    @GET("user/loginByAccount")
     suspend fun  loginByAccount(@Query("userAccount")userAccount:String,@Query("userPassword")userPassword:String):Boolean
 
     @POST("user/registerUserByAccount")

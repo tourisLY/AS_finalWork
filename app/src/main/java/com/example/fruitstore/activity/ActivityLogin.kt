@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fruitstore.databinding.ActivityLoginBinding
@@ -19,8 +20,9 @@ class ActivityLogin:AppCompatActivity() {
 
 
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("test","im in?")
         initView()
         initButton()
     }
@@ -32,7 +34,7 @@ class ActivityLogin:AppCompatActivity() {
 
     private fun initButton(){
         binding.gotoLogin.setOnClickListener{bt_login()}
-        binding.gotoRegister.setOnClickListener{bt_regiser()}
+        binding.gotoRegister.setOnClickListener{bt_register()}
         binding.changeLoginWay.setOnClickListener{bt_change_login_way()}
     }
 
@@ -59,7 +61,7 @@ class ActivityLogin:AppCompatActivity() {
         }
     }
 
-    private fun bt_regiser(){
+    private fun bt_register(){
         val intent = Intent(this, ActivityMain::class.java)
         CoroutineScope(Dispatchers.Main).launch {
             try {
