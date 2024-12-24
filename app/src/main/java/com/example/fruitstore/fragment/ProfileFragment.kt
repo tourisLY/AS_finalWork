@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import com.example.fruitstore.R
+import com.example.fruitstore.activity.ActivityLogin
 import com.example.fruitstore.databinding.FragmentProfileBinding
 import com.example.fruitstore.entity.User
 import com.example.fruitstore.repository.UserRepository
@@ -46,6 +47,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.addressLayout.setOnClickListener{btAddress()}               //地址
         binding.usLayout.setOnClickListener{btUs()}                         //我们
         binding.settingLayout.setOnClickListener{btSetting()}               //设置
+        binding.exitLogin.setOnClickListener{btExit()}                      //退出登录
+        binding.userMsgLayout.setOnClickListener{btUser()}                  //用户信息
     }
 
     private fun btBalance(){
@@ -67,7 +70,17 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         Toast.makeText(context, "women", Toast.LENGTH_SHORT).show()
     }
     private fun btSetting(){
+    }
 
+    private fun btExit(){
+        val exitIntent = Intent(context, ActivityLogin::class.java)
+        startActivity(exitIntent)
+    }
+
+    private fun btUser(){
+        //TODO 这里需要在创建完一个用户界面的activity之后，在修改
+        val userIntent = Intent(context, ActivityLogin::class.java)
+        startActivity(userIntent)
     }
 
     private fun initView(){

@@ -47,6 +47,7 @@ class ActivityLogin:AppCompatActivity() {
                 {
                     Toast.makeText(baseContext,"登录成功！", Toast.LENGTH_SHORT).show()
                     intent.putExtra("userAccount", binding.loginAccount.text.toString())
+                    intent.putExtra("loginState",true)
                     finish()
                     startActivity(intent)
                 }

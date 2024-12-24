@@ -35,8 +35,8 @@ class ActivityMain: AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         initView()
-
         getPermission()
+        intent.putExtra("loginState", false)
 
     }
 
@@ -52,6 +52,7 @@ class ActivityMain: AppCompatActivity() {
 //            .replace(R.id.home_fragment, homeFragment)
 //            .commit()
     }
+
 
     private fun initBottomNavigation(){                             //导航栏跳转
         val bottomNav: BottomNavigationView = binding.bottomNavigation
