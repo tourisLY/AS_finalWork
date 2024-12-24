@@ -83,12 +83,13 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 Log.d("aaa", "${goodLeftList.size}")
                 goodLeftAdapter = ListGoodLeftAdapter(goodLeftList)
                 binding.listGoodTitle.adapter = goodLeftAdapter
-                goodLeftAdapter.notifyDataSetChanged()
+
 
 //                CoroutineScope
 //                左侧大栏加载完毕，加载右侧大栏
                 goodRightAdapter = ListGoodRightAdapter(goodLeftList)
                 binding.listGoodRight.adapter = goodRightAdapter
+                goodLeftAdapter.notifyDataSetChanged()
                 goodRightAdapter.notifyDataSetChanged()
 //                右侧大栏加载完毕,加载右侧大栏里面的商品
             }catch (e:Exception){

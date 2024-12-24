@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollbars="none"
     tools:context=".fragment.CartFragment">
 
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -31,25 +32,53 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="match_parent"
+                android:layout_height="500dp"
                 android:background="#fff0f0f0"
                 tools:ignore="NestedWeights">
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/list_good_title"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="500dp"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_weight="2"
-                android:layout_height="match_parent"
+                android:layout_height="500dp"
                 >
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/list_good_right"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="500dp"/>
             </RelativeLayout>
         </LinearLayout>
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            >
+            <TextView
+                android:id="@+id/cart_money_left_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="总金额："
+                android:textSize="30sp"
+                />
+            <TextView
+                android:id="@+id/cart_money_num"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:text="0"
+                android:layout_toEndOf="@id/cart_money_left_icon"
+                android:textSize="30sp"
+                android:textColor="#FFFF0000"
+
+                />
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentRight="true"
+                android:text="结算"/>
+        </RelativeLayout>
     </LinearLayout>
 
 

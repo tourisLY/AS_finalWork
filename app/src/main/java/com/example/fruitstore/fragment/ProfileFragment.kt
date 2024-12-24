@@ -81,7 +81,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     for(user in users){
                         binding.userName.text = user.userName
                         binding.balanceNum.text = user.userBalance.toString()
-                        binding.userImg.setImageResource(user.userHead.toInt())
+                        binding.userImg.setImageResource(resources.getIdentifier(user.userHead, "drawable", requireContext().packageName))
                     }
                 }
             }catch (e:Exception){

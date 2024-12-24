@@ -18,10 +18,12 @@ import kotlinx.coroutines.launch
 class ListGoodRightAdapter (val GoodLeftList:List<GoodLeft>):RecyclerView.Adapter<ListGoodRightAdapter.ViewHolder>()
 {
     val goodsRepository = GoodsRepository()
+    lateinit var goodAdapter: GoodAdapter
 
    inner class ViewHolder(view: View):RecyclerView.ViewHolder(view){
        val goodClassify: TextView = view.findViewById(R.id.list_good_right_name)
        val innerRecyclerView:RecyclerView = view.findViewById(R.id.good_right_list_msg)
+
    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,13 +40,15 @@ class ListGoodRightAdapter (val GoodLeftList:List<GoodLeft>):RecyclerView.Adapte
 
         var innerGoodMsgList = mutableListOf<Good>()
         holder.innerRecyclerView.layoutManager = LinearLayoutManager(holder.itemView.context)
+        holder.innerRecyclerView.isNestedScrollingEnabled = false
 
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 innerGoodMsgList.addAll(goodsRepository.getGoodsById(listGoodRightBig.goodClassifyId))
-                val goodAdapter = GoodAdapter(innerGoodMsgList)
+                goodAdapter = GoodAdapter(innerGoodMsgList)
                 holder.innerRecyclerView.adapter = goodAdapter
                 goodAdapter.notifyDataSetChanged()
+
 
             }catch (e:Exception){
                 e.printStackTrace()
