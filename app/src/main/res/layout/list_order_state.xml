@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="#f0f0f0f0"
-    android:layout_marginLeft="5dp"
+    android:layout_marginLeft="10dp"
     android:layout_marginBottom="2dp"
     android:layout_marginTop="2dp"
     >
@@ -12,5 +12,6 @@
         android:id="@+id/order_list_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="18sp"
         android:text="订单状态"/>
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import android.widget.Button
 import android.widget.Toast
 import com.example.fruitstore.R
 import com.example.fruitstore.activity.ActivityLogin
+import com.example.fruitstore.activity.ActivityUser
 import com.example.fruitstore.databinding.FragmentProfileBinding
 import com.example.fruitstore.entity.User
 import com.example.fruitstore.repository.UserRepository
@@ -78,29 +80,38 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun btUser(){
-        //TODO 这里需要在创建完一个用户界面的activity之后，在修改
-        val userIntent = Intent(context, ActivityLogin::class.java)
-        startActivity(userIntent)
+        val userIntent = Intent(context, ActivityUser::class.java)
+        if(myIntent.getBooleanExtra("loginState", false)){
+            userIntent.putExtra("userAccount", myIntent.getStringExtra("userAccount")?:"wrong")
+            startActivity(userIntent)
+        }else{
+            Toast.makeText(context, "您还未登录！", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initView(){
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
+        if(myIntent.getBooleanExtra("loginState", false)){
+            CoroutineScope(Dispatchers.Main).launch {
+                try {
 
-                val users:List<User> = userRepository.getUserByAccount(userAccount)
-                if(users.isEmpty()){
-                    Toast.makeText(context, "用户信息获取失败",Toast.LENGTH_SHORT).show()
-                }else{
-                    for(user in users){
-                        binding.userName.text = user.userName
-                        binding.balanceNum.text = user.userBalance.toString()
-                        binding.userImg.setImageResource(resources.getIdentifier(user.userHead, "drawable", requireContext().packageName))
+                    val users:List<User> = userRepository.getUserByAccount(userAccount)
+                    if(users.isEmpty()){
+                        Toast.makeText(context, "用户信息获取失败",Toast.LENGTH_SHORT).show()
+                    }else{
+                        for(user in users){
+                            binding.userName.text = user.userName
+                            binding.balanceNum.text = user.userBalance.toString()
+                            binding.userImg.setImageResource(resources.getIdentifier(user.userHead, "drawable", requireContext().packageName))
+                            Log.d("头像","${resources.getIdentifier(user.userHead, "drawable", requireContext().packageName)}++++${user.userHead}")
+                        }
                     }
+                }catch (e:Exception){
+                    e.printStackTrace()
+                    Toast.makeText(context, "用户信息获取失败",Toast.LENGTH_SHORT).show()
                 }
-            }catch (e:Exception){
-                e.printStackTrace()
-                Toast.makeText(context, "用户信息获取失败",Toast.LENGTH_SHORT).show()
             }
+        }else{
+            binding.exitLogin.text = "登录"
         }
     }
 

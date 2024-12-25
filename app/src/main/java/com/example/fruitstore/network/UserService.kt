@@ -14,4 +14,7 @@ interface UserService {
 
     @GET("user/getByAccount")
     suspend fun getUserByAccount(@Query("userAccount")userAccount: String):List<User>
+
+    @POST("user/updateUserName")
+    suspend fun updateUserName(@Query("userId")userId:Int, @Query("userName")userName:String):Boolean
 }

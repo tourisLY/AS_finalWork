@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fruitstore.databinding.ActivityLoginBinding
+import com.example.fruitstore.entity.User
 import com.example.fruitstore.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,6 +37,12 @@ class ActivityLogin:AppCompatActivity() {
         binding.gotoLogin.setOnClickListener{bt_login()}
         binding.gotoRegister.setOnClickListener{bt_register()}
         binding.changeLoginWay.setOnClickListener{bt_change_login_way()}
+        binding.loginBackLoginStateFalse.setOnClickListener{btNoLogin()}
+    }
+
+    private fun btNoLogin(){
+        val intent = Intent(this, ActivityMain::class.java)
+        finish()
     }
 
     private fun bt_login(){
@@ -48,6 +55,14 @@ class ActivityLogin:AppCompatActivity() {
                     Toast.makeText(baseContext,"登录成功！", Toast.LENGTH_SHORT).show()
                     intent.putExtra("userAccount", binding.loginAccount.text.toString())
                     intent.putExtra("loginState",true)
+                    val users:List<User> = userRepository.getUserByAccount(binding.loginAccount.text.toString())
+                    if(users.isEmpty()){
+                        Toast.makeText(baseContext, "用户信息获取失败",Toast.LENGTH_SHORT).show()
+                    }else{
+                        for (user in users){
+                            intent.putExtra("userId", user.userId)
+                        }
+                    }
                     finish()
                     startActivity(intent)
                 }

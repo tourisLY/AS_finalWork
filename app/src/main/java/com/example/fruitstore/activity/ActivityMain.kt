@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
+import android.os.PersistableBundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -33,10 +34,13 @@ class ActivityMain: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        if(savedInstanceState != null){
+            intent.putExtra("userAccount", savedInstanceState.getString("userAccount"))
+            intent.putExtra("loginState", savedInstanceState.getBoolean("loginState"))
+        }
         initView()
         getPermission()
-        intent.putExtra("loginState", false)
+//        intent.putExtra("loginState", false)
 
     }
 
@@ -62,79 +66,6 @@ class ActivityMain: AppCompatActivity() {
         navController.navigate(item.itemId) // 根据菜单项的 ID 执行导航
         true
     }
-//        {
-    //
-    //        menuItem ->
-//            when(menuItem.itemId){
-//                R.id.nav_home->{
-////                    startActivity(Intent(this, ActivityHome::class.java)
-//                    if(fragmentManager.findFragmentById(R.id.home_fragment) is HomeFragment){
-//                        Log.d("导航栏", "已在主页")
-//                        bottomChange = true
-//                    }else if(timeLimit >= 10){
-//                        timeLimit = 0
-//                        fragmentManager.beginTransaction()
-//                            .replace(R.id.home_fragment, homeFragment)
-//                            .commitAllowingStateLoss()
-//                        bottomChange = true
-//                    }else{
-//                        bottomChange = false
-//                    }
-//
-//                    bottomChange
-//                }
-//                R.id.nav_cart->{
-////                    startActivity(Intent(this, ActivityCart::class.java))
-//                    if(fragmentManager.findFragmentById(R.id.home_fragment) is CartFragment){
-//                        Log.d("导航栏", "已在点单")
-//                        bottomChange = true
-//                    }else if(timeLimit >= 10){
-//                        timeLimit = 0
-//                        fragmentManager.beginTransaction()
-//                            .replace(R.id.home_fragment, cartFragment)
-//                            .commitAllowingStateLoss()
-//                        bottomChange = true
-//                    }else{
-//                        bottomChange = false
-//                    }
-//                    bottomChange
-//                }
-//                R.id.nav_order->{
-////                    startActivity(Intent(this, ActivityOrder::class.java))
-//                    if(fragmentManager.findFragmentById(R.id.home_fragment) is OrderFragment){
-//                        Log.d("导航栏", "已在订单")
-//                        bottomChange = true
-//                    }else if(timeLimit >= 10){
-//                        timeLimit = 0
-//                        fragmentManager.beginTransaction()
-//                            .replace(R.id.home_fragment, orderFragment)
-//                            .commitAllowingStateLoss()
-//                        bottomChange = true
-//                    }else{
-//                        bottomChange = false
-//                    }
-//                    bottomChange
-//                }
-//                R.id.nav_profile->{
-//                    if(fragmentManager.findFragmentById(R.id.home_fragment) is ProfileFragment){
-//                        Log.d("导航栏", "已在我的")
-//                        bottomChange = true
-//                    }else if(timeLimit >= 10){
-//                        timeLimit = 0
-//                        fragmentManager.beginTransaction()
-//                            .replace(R.id.home_fragment, profileFragment)
-//                            .commitAllowingStateLoss()
-//                        bottomChange = true
-//                    }else{
-//                        bottomChange = false
-//                    }
-//                    bottomChange
-//                }
-//
-//                else -> false
-//            }
-//        }
-//        bottomNav.selectedItemId = R.id.nav_home
     }
 
 
@@ -174,5 +105,11 @@ class ActivityMain: AppCompatActivity() {
             ActivityCompat.requestPermissions(this,
                 permissionList.toTypedArray(), 2)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        outState.putString("userAccount", intent.getStringExtra("userAccount"))
+        outState.putBoolean("loginState", intent.getBooleanExtra("loginState", false))
     }
 }

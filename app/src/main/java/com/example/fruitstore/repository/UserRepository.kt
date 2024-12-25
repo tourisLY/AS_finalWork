@@ -26,4 +26,11 @@ class UserRepository {
             RetrofitInstance.userapi.getUserByAccount(userAccount)
         }
     }
+
+    suspend fun updateUserName(userId:Int, userName:String):Boolean
+    {
+        return withContext(Dispatchers.IO){
+            RetrofitInstance.userapi.updateUserName(userId, userName)
+        }
+    }
 }
