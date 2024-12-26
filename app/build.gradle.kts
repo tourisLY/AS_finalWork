@@ -36,6 +36,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    sourceSets {
+        getByName("main"){
+            jniLibs.srcDirs("libs")
+        }
+    }
 }
 
 dependencies {
@@ -48,6 +53,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.0")
+    implementation(files("libs\\BaiduLBS_Android.jar"))
+
 
 //    implementation (com.google.android.material:material:1.1.0)
     testImplementation(libs.junit)

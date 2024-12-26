@@ -18,4 +18,11 @@ class GoodsRepository {
             RetrofitInstance.goodsapi.getGoodByClassifyId(classifyId)
         }
     }
+
+    suspend fun getGoodsByGoodName(goodName:String):List<Good>
+    {
+        return withContext(Dispatchers.IO){
+            RetrofitInstance.goodsapi.getGoodByGoodName(goodName)
+        }
+    }
 }

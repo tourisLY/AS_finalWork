@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none"
-    tools:context=".fragment.CartFragment">
+    tools:context="com.example.fruitstore.fragment.CartFragment">
 
 
     <LinearLayout
@@ -26,11 +26,9 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="500dp"
-
             >
             <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="120dp"
                 android:layout_height="500dp"
                 android:background="#fff0f0f0"
                 tools:ignore="NestedWeights">
@@ -50,34 +48,105 @@
                     android:layout_height="500dp"/>
             </RelativeLayout>
         </LinearLayout>
-        <RelativeLayout
-
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            >
-            <TextView
+            android:background="#fff0f0f0"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- 第一部分：购物车图标、文本和小红点 -->
+            <RelativeLayout
+                android:layout_weight="8"
                 android:id="@+id/cart_money_left_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="总金额："
-                android:textSize="30sp"
-                />
-            <TextView
-                android:id="@+id/cart_money_num"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:text="0"
-                android:layout_toEndOf="@id/cart_money_left_icon"
-                android:textSize="30sp"
-                android:textColor="#FFFF0000"
+                android:background="@drawable/rounded_corner_background"
+                android:paddingStart="10dp"
+                android:gravity="center_vertical">
 
-                />
+                <!-- 购物车图标 -->
+                <ImageView
+                    android:id="@+id/cart_icon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/good_cart"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true" />
+
+                <!-- 显示文字 -->
+                <TextView
+                    android:id="@+id/cart_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="购物车"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:layout_toEndOf="@id/cart_icon"
+                    android:layout_centerVertical="true"
+                    android:paddingStart="8dp" />
+
+                <!-- 小红点，用来显示购物车中物品数量 -->
+                <TextView
+                    android:id="@+id/cart_item_count"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="-5dp"
+                    android:layout_marginEnd="-5dp"
+                    android:background="@drawable/red_dot"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textSize="12sp"
+                    android:textColor="#FFFFFF" />
+            </RelativeLayout>
+
+            <!-- 第二部分：总金额 -->
+            <RelativeLayout
+                android:id="@+id/cart_money_section"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_weight="2"
+                android:layout_marginStart="10dp">
+
+                <TextView
+                    android:id="@+id/cart_money_left_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="总金额￥："
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    android:id="@+id/cart_money_num"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="-1dp"
+                    android:layout_toEndOf="@id/cart_money_left_text"
+                    android:gravity="center"
+                    android:text="0.00"
+                    android:textColor="#FFFF0000"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+            <!-- 第三部分：结算按钮 -->
             <Button
+                android:id="@+id/bt_cart_JieSuan"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:text="结算"
                 android:layout_alignParentRight="true"
-                android:text="结算"/>
-        </RelativeLayout>
+                android:gravity="center"
+                android:background="@drawable/button_sum"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
 

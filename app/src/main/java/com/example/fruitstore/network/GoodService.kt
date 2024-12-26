@@ -10,4 +10,7 @@ interface GoodService {
 
     @GET("goods/byClassifyId")
     suspend fun getGoodByClassifyId(@Query("ClassifyId")classifyId:Int):List<Good>
+
+    @GET("goods/byGoodName")
+    suspend fun getGoodByGoodName(@Query("goodName")goodName:String):List<Good>
 }

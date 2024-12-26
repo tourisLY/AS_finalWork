@@ -22,6 +22,7 @@ class OrderAdapter(val OrderList:List<Order>):RecyclerView.Adapter<OrderAdapter.
         val shopName:TextView = view.findViewById(R.id.order_shop_name)
         val orderState:TextView = view.findViewById(R.id.order_list_state)
         val orderItemRecyclerView:RecyclerView = view.findViewById(R.id.list_order_item)
+        val orderAllPrice:TextView = view.findViewById(R.id.list_order_all_price)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,6 +37,7 @@ class OrderAdapter(val OrderList:List<Order>):RecyclerView.Adapter<OrderAdapter.
         val order = OrderList[position]
         holder.shopName.text = order.shopName
         holder.orderState.text = order.orderState
+        holder.orderAllPrice.text = order.orderAllPrice.toString()
 
         var orderItemList = mutableListOf<OrderItem>()
         holder.orderItemRecyclerView.layoutManager = LinearLayoutManager(holder.itemView.context)

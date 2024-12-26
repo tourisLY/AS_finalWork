@@ -8,10 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fruitstore.R
 import com.example.fruitstore.entity.GoodLeft
 
-class ListGoodLeftAdapter(val GoodLeftList:List<GoodLeft>) :RecyclerView.Adapter<ListGoodLeftAdapter.ViewHolder>()
-{
-    inner class ViewHolder(view: View):RecyclerView.ViewHolder(view){
-        val goodClassify:TextView = view.findViewById(R.id.list_good_title_txt)
+class ListGoodLeftAdapter(
+    private val goodLeftList: MutableList<GoodLeft>,
+    private val onCategoryClickListener: (GoodLeft) -> Unit
+) : RecyclerView.Adapter<ListGoodLeftAdapter.ViewHolder>() {
+
+    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+        val goodClassify: TextView = view.findViewById(R.id.list_good_title_txt)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,9 +24,14 @@ class ListGoodLeftAdapter(val GoodLeftList:List<GoodLeft>) :RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val goodClass = GoodLeftList[position]
-        holder.goodClassify.text = goodClass.goodClassify
+        val category  = goodLeftList[position]
+        holder.goodClassify.text = category.goodClassify
+
+        // 确保点击事件被触发
+        holder.itemView.setOnClickListener {
+            onCategoryClickListener(category)  // 调用回调方法
+        }
     }
 
-    override fun getItemCount() = GoodLeftList.size
+    override fun getItemCount() = goodLeftList.size
 }

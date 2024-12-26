@@ -79,12 +79,12 @@
             android:layout_height="wrap_content"
             android:text="注册"
             />
-        <Button
-            android:id="@+id/change_login_way"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="切换登录方式"
-            />
+<!--        <Button-->
+<!--            android:id="@+id/change_login_way"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="切换登录方式"-->
+<!--            />-->
     </LinearLayout>
     <Button
         android:id="@+id/login_back_loginState_false"

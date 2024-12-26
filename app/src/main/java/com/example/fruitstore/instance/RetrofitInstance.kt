@@ -1,6 +1,7 @@
 package com.example.fruitstore.instance
 
 import com.example.fruitstore.network.ApiService
+import com.example.fruitstore.network.CartService
 import com.example.fruitstore.network.GoodService
 import com.example.fruitstore.network.OrderService
 import com.example.fruitstore.network.UserService
@@ -39,5 +40,13 @@ object RetrofitInstance {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(OrderService::class.java)
+    }
+
+    val cartapi: CartService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(CartService::class.java)
     }
 }

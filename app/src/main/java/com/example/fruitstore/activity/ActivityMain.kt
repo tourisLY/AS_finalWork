@@ -1,6 +1,7 @@
 package com.example.fruitstore.activity
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -22,7 +23,7 @@ import com.example.fruitstore.fragment.OrderFragment
 import com.example.fruitstore.fragment.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class ActivityMain: AppCompatActivity() {
+class ActivityMain: AppCompatActivity(), ProfileFragment.OnTextUpdatedListener{
 
     private lateinit var binding:ActivityMainBinding
     private val fragmentManager = supportFragmentManager
@@ -58,12 +59,26 @@ class ActivityMain: AppCompatActivity() {
     }
 
 
+    @SuppressLint("ResourceType")
+    override fun onTextUpdated(newText: Int) {
+        // 获取 Fragment 并更新其 TextView
+        val bottomNav: BottomNavigationView = binding.bottomNavigation
+        val navController = findNavController(R.id.nav_host_fragment)
+        bottomNav.setupWithNavController(navController)
+//        bottomNav.setOnNavigationItemSelectedListener { item ->
+//            navController.navigate(item.itemId) // 根据菜单项的 ID 执行导航
+//            true
+//        }
+        navController.navigate(2131231072)
+    }
+
     private fun initBottomNavigation(){                             //导航栏跳转
         val bottomNav: BottomNavigationView = binding.bottomNavigation
         val navController = findNavController(R.id.nav_host_fragment)
         bottomNav.setupWithNavController(navController)
       bottomNav.setOnNavigationItemSelectedListener { item ->
         navController.navigate(item.itemId) // 根据菜单项的 ID 执行导航
+//          Toast.makeText(this, "${item.itemId}", Toast.LENGTH_SHORT).show()
         true
     }
     }
@@ -92,18 +107,37 @@ class ActivityMain: AppCompatActivity() {
     private fun getPermission(){
         val permissionList = ArrayList<String>()
         if(ContextCompat.checkSelfPermission(this,
-                Manifest.permission.INTERNET)!=
+                android.Manifest.permission.READ_EXTERNAL_STORAGE)!=
             PackageManager.PERMISSION_GRANTED){
-            permissionList.add(Manifest.permission.INTERNET)
+            permissionList.add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
         }
         if(ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_NETWORK_STATE)!=
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE)!=
             PackageManager.PERMISSION_GRANTED){
-            permissionList.add(Manifest.permission.ACCESS_NETWORK_STATE)
+            permissionList.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
         }
+        if(ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)!=
+            PackageManager.PERMISSION_GRANTED){
+            permissionList.add(android.Manifest.permission.ACCESS_COARSE_LOCATION)
+        }
+        if(ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION)!=
+            PackageManager.PERMISSION_GRANTED){
+            permissionList.add(android.Manifest.permission.ACCESS_FINE_LOCATION)
+
+        }
+        if(ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_WIFI_STATE)!=
+            PackageManager.PERMISSION_GRANTED){
+            permissionList.add(android.Manifest.permission.ACCESS_WIFI_STATE)
+        }
+
         if(!permissionList.isEmpty()){
             ActivityCompat.requestPermissions(this,
-                permissionList.toTypedArray(), 2)
+                permissionList.toTypedArray(),2)
+        }else{
+//            binding.tvResult.text = "权限通过"
         }
     }
 

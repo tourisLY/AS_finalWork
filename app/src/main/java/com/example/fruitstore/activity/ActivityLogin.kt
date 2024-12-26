@@ -7,6 +7,7 @@ import android.os.PersistableBundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fruitstore.R
 import com.example.fruitstore.databinding.ActivityLoginBinding
 import com.example.fruitstore.entity.User
 import com.example.fruitstore.repository.UserRepository
@@ -31,12 +32,14 @@ class ActivityLogin:AppCompatActivity() {
     private fun initView(){
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.loginImage.setImageResource(R.drawable.app)
     }
 
     private fun initButton(){
         binding.gotoLogin.setOnClickListener{bt_login()}
         binding.gotoRegister.setOnClickListener{bt_register()}
-        binding.changeLoginWay.setOnClickListener{bt_change_login_way()}
+//        binding.changeLoginWay.setOnClickListener{bt_change_login_way()}
         binding.loginBackLoginStateFalse.setOnClickListener{btNoLogin()}
     }
 

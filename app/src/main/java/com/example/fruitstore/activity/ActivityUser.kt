@@ -68,6 +68,5 @@ class ActivityUser:AppCompatActivity() {
             intent.putExtra("loginState", true)
         }
         finish()
-        startActivity(intent)
     }
 }

@@ -13,10 +13,15 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import com.example.fruitstore.R
+import com.example.fruitstore.activity.ActivityCharge
+import com.example.fruitstore.activity.ActivityLocation
 import com.example.fruitstore.activity.ActivityLogin
 import com.example.fruitstore.activity.ActivityUser
+import com.example.fruitstore.activity.Activity_store
 import com.example.fruitstore.databinding.FragmentProfileBinding
+import com.example.fruitstore.entity.Order
 import com.example.fruitstore.entity.User
+import com.example.fruitstore.repository.OrderRepository
 import com.example.fruitstore.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -30,8 +35,15 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private lateinit var myIntent:Intent
     private lateinit var userAccount: String
 
+    private var listener: OnTextUpdatedListener? = null
+
     val userRepository = UserRepository()
+    val orderRepository = OrderRepository()
     private lateinit var user: User
+
+    interface OnTextUpdatedListener {
+        fun onTextUpdated(newText: Int)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,16 +69,61 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     }
     private fun btRecharge(){
+        // 创建 Intent 来启动 FragmentChargeActivity
+        val intent = Intent(requireContext(), ActivityCharge::class.java)
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val users:List<User> = userRepository.getUserByAccount(userAccount)
+                for(user in users){
+                    intent.putExtra("userId", user.userId)
+                }
+
+                // 你可以通过 putExtra 传递一些数据
+                intent.putExtra("user_account", userAccount)
+                startActivity(intent)
+            }catch (e:Exception ){
+                e.printStackTrace()
+            }
+        }
+
+
+
+        // 启动 Activity
 
     }
-    private fun btOrder(){
 
+    override fun onResume() {
+        super.onResume()
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+
+                val users:List<User> = userRepository.getUserByAccount(userAccount)
+                if(users.isEmpty()){
+//                    Toast.makeText(context, "用户信息获取失败",Toast.LENGTH_SHORT).show()
+                }else{
+                    for(user in users){
+//                        binding.userName.text = user.userName
+                        binding.balanceNum.text = user.userBalance.toString()
+//                        binding.userImg.setImageResource(resources.getIdentifier(user.userHead, "drawable", requireContext().packageName))
+//                        Log.d("头像","${resources.getIdentifier(user.userHead, "drawable", requireContext().packageName)}++++${user.userHead}")
+                    }
+                }
+            }catch (e:Exception){
+                e.printStackTrace()
+                Toast.makeText(context, "用户信息获取失败",Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun btOrder(){
+        listener?.onTextUpdated(3)
     }
     private fun btTicket(){
 
     }
     private fun btAddress(){
-
+        val intent = Intent(context, Activity_store::class.java)
+        startActivity(intent)
     }
     private fun btUs(){
         Toast.makeText(context, "women", Toast.LENGTH_SHORT).show()
@@ -103,6 +160,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                             binding.balanceNum.text = user.userBalance.toString()
                             binding.userImg.setImageResource(resources.getIdentifier(user.userHead, "drawable", requireContext().packageName))
                             Log.d("头像","${resources.getIdentifier(user.userHead, "drawable", requireContext().packageName)}++++${user.userHead}")
+
+                            val Orders:List<Order> = orderRepository.getAllOrders(user.userId)
+                            binding.orderNum.text = Orders.size.toString()
                         }
                     }
                 }catch (e:Exception){
